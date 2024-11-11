@@ -15,8 +15,9 @@ export default async function handler(req, res) {
           Source: 'hyypApp',
           DetailType: 'star_event',
           Detail: JSON.stringify({
-            userId: 2,
-            starRating: 2,
+            userId: 99,
+            starRating: 88,
+            name: 'hyyp',
             timestamp: new Date().toISOString(),
           }),
         },

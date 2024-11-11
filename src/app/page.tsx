@@ -1,5 +1,9 @@
 'use client';
-import { useEffect } from "react";
+import { useEffect } from 'react';
+import { Amplify } from 'aws-amplify';
+import config from '../amplifyconfiguration.json';
+
+Amplify.configure(config);
 
 export default function Home() {
   useEffect(() => {
@@ -18,6 +22,7 @@ export default function Home() {
       }
     }
 
+    // Trigger the EventBridge event on every page load
     triggerEvent();
   }, []);
 
