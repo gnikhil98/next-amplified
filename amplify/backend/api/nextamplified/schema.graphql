@@ -5,6 +5,8 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 type Blog @model {
   id: ID!
   name: String!
+  costPrice: Int
+  sellingPrice: Int
   posts: [Post] @hasMany
 }
 
