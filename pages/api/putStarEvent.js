@@ -1,10 +1,17 @@
 // /pages/api/putStarEvent.js
 import { EventBridge } from 'aws-sdk';
+const AWS = require('aws-sdk');
 
-const eventBridge = new EventBridge({
-  region: 'us-west-1', // Replace with your AWS region
+
+AWS.config.update({
+  region: process.env.MY_AWS_REGION,
+  accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
 });
 
+const eventBridge = new EventBridge({
+  region: 'us-west-1',
+});
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     console.log('API Request:', req.method);
@@ -18,6 +25,7 @@ export default async function handler(req, res) {
             userId: 99,
             starRating: 88,
             name: 'hyyp',
+            from: 'code trigger',
             timestamp: new Date().toISOString(),
           }),
         },
