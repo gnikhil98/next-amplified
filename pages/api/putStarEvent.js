@@ -1,32 +1,6 @@
-import { EventBridge } from 'aws-sdk';
-const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 
-// Ensure environment variables are set
-const accessKeyId = process.env.MY_AWS_ACCESS_KEY_ID;
-const secretAccessKey = process.env.MY_AWS_SECRET_ACCESS_KEY;
-const region = process.env.MY_AWS_REGION;
-
-// if (!accessKeyId || !secretAccessKey || !region) {
-//   console.error("Missing required environment variables:");
-//   console.error("ACCESS_KEY_ID:", accessKeyId);
-//   console.error("SECRET_ACCESS_KEY:", secretAccessKey);
-//   console.error("REGION:", region);
-//   throw new Error("Missing required AWS credentials or region in environment variables.");
-// }
-
-// Configure AWS SDK
-// AWS.config.update({
-//   region: region,
-//   credentials: new AWS.Credentials(accessKeyId, secretAccessKey),
-// });
-// AWS.config.update({
-//   region: process.env.MY_AWS_REGION,
-//   credentials: new AWS.Credentials(process.env.MY_AWS_ACCESS_KEY_ID, process.env.MY_AWS_SECRET_ACCESS_KEY),
-// });
-// AWS.config.update({
-//   region: process.env.MY_AWS_REGION || 'us-west-1', // fallback to default region
-// })
-const eventBridge = new AWS.EventBridge();
+const eventBridge = new AWS.EventBridge();  // No need to manually set credentials or region
 
 export default async function handler(req, res) {
   console.log('Request Method:', req.method);
