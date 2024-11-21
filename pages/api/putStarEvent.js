@@ -23,9 +23,9 @@ const region = process.env.MY_AWS_REGION;
 //   region: process.env.MY_AWS_REGION,
 //   credentials: new AWS.Credentials(process.env.MY_AWS_ACCESS_KEY_ID, process.env.MY_AWS_SECRET_ACCESS_KEY),
 // });
-AWS.config.update({
-  region: process.env.MY_AWS_REGION || 'us-west-1', // fallback to default region
-})
+// AWS.config.update({
+//   region: process.env.MY_AWS_REGION || 'us-west-1', // fallback to default region
+// })
 const eventBridge = new AWS.EventBridge();
 
 export default async function handler(req, res) {
