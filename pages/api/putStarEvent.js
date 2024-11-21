@@ -2,11 +2,15 @@ import { EventBridge } from 'aws-sdk';
 const AWS = require('aws-sdk');
 
 // AWS SDK automatically picks up the credentials from the IAM role in the deployed Amplify environment
-AWS.config.update({
-  region: 'us-west-1', // Fallback to default region if not set
-});
+// AWS.config.update({
+//   region: 'us-west-1', // Fallback to default region if not set
+// });
 
-const eventBridge = new AWS.EventBridge();
+const eventBridge = new AWS.EventBridge({
+  accessKeyId: process.env.ACCESS_KEY_ID,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  region: process.env.REGION,
+});
 
 export default async function handler(req, res) {
   console.log('Request Method:', req.method);
