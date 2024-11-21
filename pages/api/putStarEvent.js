@@ -2,9 +2,9 @@ import { EventBridge } from 'aws-sdk';
 const AWS = require('aws-sdk');
 
 // Ensure environment variables are set
-const accessKeyId = process.env.ACCESS_KEY_ID;
-const secretAccessKey = process.env.SECRET_ACCESS_KEY;
-const region = process.env.REGION;
+const accessKeyId = process.env.MY_AWS_ACCESS_KEY_ID;
+const secretAccessKey = process.env.MY_AWS_SECRET_ACCESS_KEY;
+const region = process.env.MY_AWS_REGION;
 
 // if (!accessKeyId || !secretAccessKey || !region) {
 //   console.error("Missing required environment variables:");
@@ -20,8 +20,8 @@ const region = process.env.REGION;
 //   credentials: new AWS.Credentials(accessKeyId, secretAccessKey),
 // });
 AWS.config.update({
-  region: process.env.REGION,
-  credentials: new AWS.Credentials(process.env.ACCESS_KEY_ID, process.env.SECRET_ACCESS_KEY),
+  region: process.env.MY_AWS_REGION,
+  credentials: new AWS.Credentials(process.env.MY_AWS_ACCESS_KEY_ID, process.env.MY_AWS_SECRET_ACCESS_KEY),
 });
 
 const eventBridge = new AWS.EventBridge();
