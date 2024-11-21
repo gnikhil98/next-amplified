@@ -6,18 +6,22 @@ const accessKeyId = process.env.ACCESS_KEY_ID;
 const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 const region = process.env.REGION;
 
-if (!accessKeyId || !secretAccessKey || !region) {
-  console.error("Missing required environment variables:");
-  console.error("ACCESS_KEY_ID:", accessKeyId);
-  console.error("SECRET_ACCESS_KEY:", secretAccessKey);
-  console.error("REGION:", region);
-  throw new Error("Missing required AWS credentials or region in environment variables.");
-}
+// if (!accessKeyId || !secretAccessKey || !region) {
+//   console.error("Missing required environment variables:");
+//   console.error("ACCESS_KEY_ID:", accessKeyId);
+//   console.error("SECRET_ACCESS_KEY:", secretAccessKey);
+//   console.error("REGION:", region);
+//   throw new Error("Missing required AWS credentials or region in environment variables.");
+// }
 
 // Configure AWS SDK
+// AWS.config.update({
+//   region: region,
+//   credentials: new AWS.Credentials(accessKeyId, secretAccessKey),
+// });
 AWS.config.update({
-  region: region,
-  credentials: new AWS.Credentials(accessKeyId, secretAccessKey),
+  region: process.env.REGION,
+  credentials: new AWS.Credentials(process.env.ACCESS_KEY_ID, process.env.SECRET_ACCESS_KEY),
 });
 
 const eventBridge = new AWS.EventBridge();
