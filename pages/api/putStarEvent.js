@@ -3,15 +3,24 @@ import { EventBridge } from 'aws-sdk';
 const AWS = require('aws-sdk');
 
 
+// AWS.config.update({
+//   region: process.env.MY_AWS_REGION,
+//   accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
+// });
+
+// const eventBridge = new EventBridge({
+//   region: 'us-west-1',
+// });
 AWS.config.update({
-  region: process.env.MY_AWS_REGION,
-  accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
+  region: process.env.REGION,
+  credentials: new AWS.Credentials(
+      process.env.ACCESS_KEY_ID,
+      process.env.SECRET_ACCESS_KEY
+  ),
 });
 
-const eventBridge = new EventBridge({
-  region: 'us-west-1',
-});
+const eventBridge = new AWS.EventBridge();
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     console.log('API Request:', req.method);
