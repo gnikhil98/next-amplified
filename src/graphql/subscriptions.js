@@ -6,6 +6,8 @@ export const onCreateBlog = /* GraphQL */ `
     onCreateBlog(filter: $filter) {
       id
       name
+      costPrice
+      sellingPrice
       posts {
         nextToken
         __typename
@@ -21,6 +23,8 @@ export const onUpdateBlog = /* GraphQL */ `
     onUpdateBlog(filter: $filter) {
       id
       name
+      costPrice
+      sellingPrice
       posts {
         nextToken
         __typename
@@ -36,6 +40,8 @@ export const onDeleteBlog = /* GraphQL */ `
     onDeleteBlog(filter: $filter) {
       id
       name
+      costPrice
+      sellingPrice
       posts {
         nextToken
         __typename
@@ -54,6 +60,8 @@ export const onCreatePost = /* GraphQL */ `
       blog {
         id
         name
+        costPrice
+        sellingPrice
         createdAt
         updatedAt
         __typename
@@ -77,6 +85,8 @@ export const onUpdatePost = /* GraphQL */ `
       blog {
         id
         name
+        costPrice
+        sellingPrice
         createdAt
         updatedAt
         __typename
@@ -100,6 +110,8 @@ export const onDeletePost = /* GraphQL */ `
       blog {
         id
         name
+        costPrice
+        sellingPrice
         createdAt
         updatedAt
         __typename

@@ -193,9 +193,15 @@ export default function BlogUpdateForm(props) {
   } = props;
   const initialValues = {
     name: "",
+    costPrice: "",
+    sellingPrice: "",
     posts: [],
   };
   const [name, setName] = React.useState(initialValues.name);
+  const [costPrice, setCostPrice] = React.useState(initialValues.costPrice);
+  const [sellingPrice, setSellingPrice] = React.useState(
+    initialValues.sellingPrice
+  );
   const [posts, setPosts] = React.useState(initialValues.posts);
   const [postsLoading, setPostsLoading] = React.useState(false);
   const [postsRecords, setPostsRecords] = React.useState([]);
@@ -206,6 +212,8 @@ export default function BlogUpdateForm(props) {
       ? { ...initialValues, ...blogRecord, posts: linkedPosts }
       : initialValues;
     setName(cleanValues.name);
+    setCostPrice(cleanValues.costPrice);
+    setSellingPrice(cleanValues.sellingPrice);
     setPosts(cleanValues.posts ?? []);
     setCurrentPostsValue(undefined);
     setCurrentPostsDisplayValue("");
@@ -248,6 +256,8 @@ export default function BlogUpdateForm(props) {
   };
   const validations = {
     name: [{ type: "Required" }],
+    costPrice: [],
+    sellingPrice: [],
     posts: [],
   };
   const runValidationTasks = async (
@@ -309,6 +319,8 @@ export default function BlogUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           name,
+          costPrice: costPrice ?? null,
+          sellingPrice: sellingPrice ?? null,
           posts: posts ?? null,
         };
         const validationResponses = await Promise.all(
@@ -397,6 +409,8 @@ export default function BlogUpdateForm(props) {
           });
           const modelFieldsToSave = {
             name: modelFields.name,
+            costPrice: modelFields.costPrice ?? null,
+            sellingPrice: modelFields.sellingPrice ?? null,
           };
           promises.push(
             client.graphql({
@@ -433,6 +447,8 @@ export default function BlogUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               name: value,
+              costPrice,
+              sellingPrice,
               posts,
             };
             const result = onChange(modelFields);
@@ -448,12 +464,76 @@ export default function BlogUpdateForm(props) {
         hasError={errors.name?.hasError}
         {...getOverrideProps(overrides, "name")}
       ></TextField>
+      <TextField
+        label="Cost price"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={costPrice}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              costPrice: value,
+              sellingPrice,
+              posts,
+            };
+            const result = onChange(modelFields);
+            value = result?.costPrice ?? value;
+          }
+          if (errors.costPrice?.hasError) {
+            runValidationTasks("costPrice", value);
+          }
+          setCostPrice(value);
+        }}
+        onBlur={() => runValidationTasks("costPrice", costPrice)}
+        errorMessage={errors.costPrice?.errorMessage}
+        hasError={errors.costPrice?.hasError}
+        {...getOverrideProps(overrides, "costPrice")}
+      ></TextField>
+      <TextField
+        label="Selling price"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={sellingPrice}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              costPrice,
+              sellingPrice: value,
+              posts,
+            };
+            const result = onChange(modelFields);
+            value = result?.sellingPrice ?? value;
+          }
+          if (errors.sellingPrice?.hasError) {
+            runValidationTasks("sellingPrice", value);
+          }
+          setSellingPrice(value);
+        }}
+        onBlur={() => runValidationTasks("sellingPrice", sellingPrice)}
+        errorMessage={errors.sellingPrice?.errorMessage}
+        hasError={errors.sellingPrice?.hasError}
+        {...getOverrideProps(overrides, "sellingPrice")}
+      ></TextField>
       <ArrayField
         onChange={async (items) => {
           let values = items;
           if (onChange) {
             const modelFields = {
               name,
+              costPrice,
+              sellingPrice,
               posts: values,
             };
             const result = onChange(modelFields);

@@ -23,16 +23,22 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type BlogCreateFormInputValues = {
     name?: string;
+    costPrice?: number;
+    sellingPrice?: number;
     posts?: any[];
 };
 export declare type BlogCreateFormValidationValues = {
     name?: ValidationFunction<string>;
+    costPrice?: ValidationFunction<number>;
+    sellingPrice?: ValidationFunction<number>;
     posts?: ValidationFunction<any>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type BlogCreateFormOverridesProps = {
     BlogCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     name?: PrimitiveOverrideProps<TextFieldProps>;
+    costPrice?: PrimitiveOverrideProps<TextFieldProps>;
+    sellingPrice?: PrimitiveOverrideProps<TextFieldProps>;
     posts?: PrimitiveOverrideProps<AutocompleteProps>;
 } & EscapeHatchProps;
 export declare type BlogCreateFormProps = React.PropsWithChildren<{
