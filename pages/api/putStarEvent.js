@@ -1,26 +1,5 @@
-// /pages/api/putStarEvent.js
 import { EventBridge } from 'aws-sdk';
 const AWS = require('aws-sdk');
-
-
-// AWS.config.update({
-//   region: process.env.MY_AWS_REGION,
-//   accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
-//   secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY,
-// });
-
-// const eventBridge = new EventBridge({
-//   region: 'us-west-1',
-// });
-// ===============================================================
-// AWS.config.update({
-//   region: process.env.REGION,
-//   credentials: new AWS.Credentials(
-//       process.env.ACCESS_KEY_ID,
-//       process.env.SECRET_ACCESS_KEY
-//   ),
-// });
-// ===============================================================
 
 // Ensure environment variables are set
 const accessKeyId = process.env.ACCESS_KEY_ID;
@@ -41,11 +20,14 @@ AWS.config.update({
   credentials: new AWS.Credentials(accessKeyId, secretAccessKey),
 });
 
-
 const eventBridge = new AWS.EventBridge();
+
 export default async function handler(req, res) {
+  console.log('Request Method:', req.method);
+
   if (req.method === 'POST') {
-    console.log('API Request:', req.method);
+    console.log('Received POST request');
+    
     const params = {
       Entries: [
         {
@@ -65,13 +47,14 @@ export default async function handler(req, res) {
 
     try {
       const result = await eventBridge.putEvents(params).promise();
-      console.log('Event sent:', result);
+      console.log('Event sent successfully:', result);
       res.status(200).json({ message: 'Event sent successfully', result });
     } catch (error) {
       console.error('Error sending event:', error);
       res.status(500).json({ message: 'Error sending event', error: error.message });
     }
   } else {
+    console.error('Invalid method:', req.method);
     res.status(405).json({ message: 'Method not allowed' });
   }
 }
