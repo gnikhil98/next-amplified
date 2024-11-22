@@ -1,9 +1,10 @@
-// const AWS = require('aws-sdk');
-import AWS from 'aws-sdk';
+const AWS = require('aws-sdk');
 
 // Configure AWS SDK region
 AWS.config.update({
   region: process.env.MY_AWS_REGION || 'us-west-1', // Default to 'us-west-1' if not set
+  accessKeyId: process.env.MY_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.MY_AWS_SECRET_ACCESS_KEY
 });
 
 const eventBridge = new AWS.EventBridge();
