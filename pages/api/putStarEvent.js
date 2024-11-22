@@ -1,23 +1,17 @@
-import { EventBridge } from 'aws-sdk';
 const AWS = require('aws-sdk');
 
-// AWS SDK automatically picks up the credentials from the IAM role in the deployed Amplify environment
-// AWS.config.update({
-//   region: 'us-west-1', // Fallback to default region if not set
-// });
-
-const eventBridge = new AWS.EventBridge({
-  // accessKeyId: process.env.ACCESS_KEY_ID,
-  // secretAccessKey: process.env.SECRET_ACCESS_KEY,
-  region: 'us-west-1',
+// Configure AWS SDK region
+AWS.config.update({
+  region: process.env.MY_AWS_REGION || 'us-west-1', // Default to 'us-west-1' if not set
 });
 
+const eventBridge = new AWS.EventBridge();
+console.log('AWS Config:', AWS?.config?.credentials);
+
 export default async function handler(req, res) {
-  console.log('Request Method:', req.method);
+  console.log('AWS Config:', AWS?.config?.credentials);
 
   if (req.method === 'POST') {
-    console.log('Received POST request');
-    
     const params = {
       Entries: [
         {
@@ -37,14 +31,17 @@ export default async function handler(req, res) {
 
     try {
       const result = await eventBridge.putEvents(params).promise();
+      console.log('AWS Config:', AWS?.config?.credentials);
+
       console.log('Event sent successfully:', result);
-      res.status(200).json({ message: 'Event sent successfully', result });
+      res.status(200).json({ message: 'Event sent successfully', result , AWSConfig: AWS?.config?.credentials});
     } catch (error) {
       console.error('Error sending event:', error);
-      res.status(500).json({ message: 'Error sending event', error: error.message });
+      console.log('AWS Config:', AWS?.config?.credentials);
+
+      res.status(500).json({ message: 'Error sending event', error: error.message , AWSConfig: AWS?.config?.credentials});
     }
   } else {
-    console.error('Invalid method:', req.method);
     res.status(405).json({ message: 'Method not allowed' });
   }
 }
