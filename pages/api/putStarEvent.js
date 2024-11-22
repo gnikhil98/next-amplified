@@ -1,4 +1,5 @@
-const AWS = require('aws-sdk');
+// const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 
 // Configure AWS SDK region
 AWS.config.update({
