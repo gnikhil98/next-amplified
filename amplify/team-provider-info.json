@@ -15,12 +15,6 @@
       "api": {
         "nextamplified": {}
       },
-      "function": {
-        "eventbridgelambda": {
-          "deploymentBucketName": "amplify-nextamplified-dev-a0255-deployment",
-          "s3Key": "amplify-builds/eventbridgelambda-5562493438306e315954-build.zip"
-        }
-      },
       "auth": {
         "nextamplified453f9127": {}
       }

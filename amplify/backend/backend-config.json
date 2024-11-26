@@ -45,29 +45,5 @@
       "service": "Cognito"
     }
   },
-  "function": {
-    "eventbridgelambda": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_eventbridgelambda_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "eventbridgelambda"
-        }
-      ]
-    },
-    "AMPLIFY_function_eventbridgelambda_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "eventbridgelambda"
-        }
-      ]
-    }
-  }
+  "function": {}
 }
